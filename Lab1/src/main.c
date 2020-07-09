@@ -111,36 +111,36 @@ static void gpio_configure_pull_state_example()
     ret = hal_gpio_set_direction(HAL_GPIO_36, HAL_GPIO_DIRECTION_INPUT);
     if (HAL_GPIO_STATUS_OK != ret) 
 	{
-        printf("hal_gpio_set_direction failed\r\n");
-        hal_gpio_deinit(HAL_GPIO_36);
-        return;
+		printf("hal_gpio_set_direction failed\r\n");
+		hal_gpio_deinit(HAL_GPIO_36);
+		return;
     }
 
     /* Configure the pull state to pull-up. */
     ret = hal_gpio_pull_up(HAL_GPIO_36);
     if (HAL_GPIO_STATUS_OK != ret) 
 	{
-        printf("hal_gpio_pull_up failed\r\n");
-        hal_gpio_deinit(HAL_GPIO_36);
-        return;
+		printf("hal_gpio_pull_up failed\r\n");
+		hal_gpio_deinit(HAL_GPIO_36);
+		return;
     }
 
     /* Read the input data of the pin for further validation.*/
     ret = hal_gpio_get_input(HAL_GPIO_36, &data_pull_up);
-    if (HAL_GPIO_STATUS_OK != ret) 
+	if (HAL_GPIO_STATUS_OK != ret) 
 	{
-        printf("hal_gpio_get_input failed\r\n");
-        hal_gpio_deinit(HAL_GPIO_36);
-        return;
+		printf("hal_gpio_get_input failed\r\n");
+		hal_gpio_deinit(HAL_GPIO_36);
+		return;
     }
 
     /*Step2: Change the pull state to pull-down and read the input data.*/
 
     /* Configure the pull state to pull-down.*/
-    ret = hal_gpio_pull_down(HAL_GPIO_36);
-    if (HAL_GPIO_STATUS_OK != ret) 
+	ret = hal_gpio_pull_down(HAL_GPIO_36);
+	if (HAL_GPIO_STATUS_OK != ret) 
 	{
-        printf("hal_gpio_pull_down failed\r\n");
+		printf("hal_gpio_pull_down failed\r\n");
         hal_gpio_deinit(HAL_GPIO_36);
         return;
     }
@@ -220,12 +220,12 @@ int main(void)
 	volatile int cnt=0,bump=0,state=0;
 	hal_gpio_data_t  a;
     /* Configure system clock. */
-    SystemClock_Config();
+	SystemClock_Config();
 
     /* Configure the hardware. */
-    prvSetupHardware();
+	prvSetupHardware();
 
-    /* Enable I,F bits */
+	/* Enable I,F bits */
     __enable_irq();
     __enable_fault_irq();
 
