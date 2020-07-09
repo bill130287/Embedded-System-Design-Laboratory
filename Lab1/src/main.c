@@ -1,37 +1,3 @@
-/* Copyright Statement:
- *
- * (C) 2005-2016  MediaTek Inc. All rights reserved.
- *
- * This software/firmware and related documentation ("MediaTek Software") are
- * protected under relevant copyright laws. The information contained herein
- * is confidential and proprietary to MediaTek Inc. ("MediaTek") and/or its licensors.
- * Without the prior written permission of MediaTek and/or its licensors,
- * any reproduction, modification, use or disclosure of MediaTek Software,
- * and information contained herein, in whole or in part, shall be strictly prohibited.
- * You may only use, reproduce, modify, or distribute (as applicable) MediaTek Software
- * if you have agreed to and been bound by the applicable license agreement with
- * MediaTek ("License Agreement") and been granted explicit permission to do so within
- * the License Agreement ("Permitted User").  If you are not a Permitted User,
- * please cease any access or use of MediaTek Software immediately.
- * BY OPENING THIS FILE, RECEIVER HEREBY UNEQUIVOCALLY ACKNOWLEDGES AND AGREES
- * THAT MEDIATEK SOFTWARE RECEIVED FROM MEDIATEK AND/OR ITS REPRESENTATIVES
- * ARE PROVIDED TO RECEIVER ON AN "AS-IS" BASIS ONLY. MEDIATEK EXPRESSLY DISCLAIMS ANY AND ALL
- * WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NONINFRINGEMENT.
- * NEITHER DOES MEDIATEK PROVIDE ANY WARRANTY WHATSOEVER WITH RESPECT TO THE
- * SOFTWARE OF ANY THIRD PARTY WHICH MAY BE USED BY, INCORPORATED IN, OR
- * SUPPLIED WITH MEDIATEK SOFTWARE, AND RECEIVER AGREES TO LOOK ONLY TO SUCH
- * THIRD PARTY FOR ANY WARRANTY CLAIM RELATING THERETO. RECEIVER EXPRESSLY ACKNOWLEDGES
- * THAT IT IS RECEIVER'S SOLE RESPONSIBILITY TO OBTAIN FROM ANY THIRD PARTY ALL PROPER LICENSES
- * CONTAINED IN MEDIATEK SOFTWARE. MEDIATEK SHALL ALSO NOT BE RESPONSIBLE FOR ANY MEDIATEK
- * SOFTWARE RELEASES MADE TO RECEIVER'S SPECIFICATION OR TO CONFORM TO A PARTICULAR
- * STANDARD OR OPEN FORUM. RECEIVER'S SOLE AND EXCLUSIVE REMEDY AND MEDIATEK'S ENTIRE AND
- * CUMULATIVE LIABILITY WITH RESPECT TO MEDIATEK SOFTWARE RELEASED HEREUNDER WILL BE,
- * AT MEDIATEK'S OPTION, TO REVISE OR REPLACE MEDIATEK SOFTWARE AT ISSUE,
- * OR REFUND ANY SOFTWARE LICENSE FEES OR SERVICE CHARGE PAID BY RECEIVER TO
- * MEDIATEK FOR SUCH MEDIATEK SOFTWARE AT ISSUE.
- */
-
 /* Includes ------------------------------------------------------------------*/
 #include <stdint.h>
 #include <stdio.h>
@@ -73,7 +39,7 @@ static void log_uart_init(void)
     hal_uart_config_t uart_config;
     /* Set Pinmux to UART */
     hal_pinmux_set_function(HAL_GPIO_0, HAL_GPIO_0_UART1_RTS_CM4);
-    hal_pinmux_set_function(HAL_GPIO_1, HAL_GPIO_1_UART1_CTS_CM4);
+	hal_pinmux_set_function(HAL_GPIO_1, HAL_GPIO_1_UART1_CTS_CM4);
     hal_pinmux_set_function(HAL_GPIO_2, HAL_GPIO_2_UART1_RX_CM4);
     hal_pinmux_set_function(HAL_GPIO_3, HAL_GPIO_3_UART1_TX_CM4);
 
@@ -92,7 +58,7 @@ static void log_uart_init(void)
 */
 static void SystemClock_Config(void)
 {
-    top_xtal_init();
+	top_xtal_init();
 }
 
 
@@ -202,47 +168,47 @@ void gpio_application_36(void)
 {
 
   	hal_gpio_init(HAL_GPIO_36);
-		hal_pinmux_set_function(HAL_GPIO_36,HAL_GPIO_36_GPIO36 ); // Set the pin tooperate in GPIO mode.
-		hal_gpio_set_direction(HAL_GPIO_36, HAL_GPIO_DIRECTION_OUTPUT);
-		hal_gpio_set_output(HAL_GPIO_36, HAL_GPIO_DATA_LOW);
-		//hal_gpio_deinit(36);
+	hal_pinmux_set_function(HAL_GPIO_36,HAL_GPIO_36_GPIO36 ); // Set the pin tooperate in GPIO mode.
+	hal_gpio_set_direction(HAL_GPIO_36, HAL_GPIO_DIRECTION_OUTPUT);
+	hal_gpio_set_output(HAL_GPIO_36, HAL_GPIO_DATA_LOW);
+	//hal_gpio_deinit(36);
 }
 
 void gpio_application_37(void)
 {
-  	hal_gpio_init(HAL_GPIO_37);
-		hal_pinmux_set_function(HAL_GPIO_37, HAL_GPIO_37_GPIO37); // Set the pin tooperate in GPIO mode.
-		hal_gpio_set_direction(HAL_GPIO_37, HAL_GPIO_DIRECTION_INPUT);
-		/*hal_gpio_get_input (HAL_GPIO_37,a);
-	  return *a;*/
-		//hal_gpio_deinit(37);
+	hal_gpio_init(HAL_GPIO_37);
+	hal_pinmux_set_function(HAL_GPIO_37, HAL_GPIO_37_GPIO37); // Set the pin tooperate in GPIO mode.
+	hal_gpio_set_direction(HAL_GPIO_37, HAL_GPIO_DIRECTION_INPUT);
+	/*hal_gpio_get_input (HAL_GPIO_37,a);
+	return *a;*/
+	//hal_gpio_deinit(37);
 }
 
 void SYS_Delay(unsigned int us)
 {
-		static unsigned char repeat;
+	static unsigned char repeat;
 	
-		// If sys clock is 25M Hz.
-	  repeat = 25;
-hal_gpio_data_t  a;
-			SysTick->CTRL &= ~( 1 | 1 << 16 ); 
-			SysTick->LOAD = us;
-			SysTick->VAL  = 0;
-			SysTick->CTRL = SysTick_CTRL_ENABLE_Msk;
-		while(repeat--){
-			
-			/* Waiting for down-count to zero */
-			while((SysTick->CTRL & (1 << 16)) == 0);
-			SysTick->VAL  = 0;
-			hal_gpio_get_input (HAL_GPIO_37,&a);
-			if(a) break;
-		}
+	// If sys clock is 25M Hz.
+	repeat = 25;
+	hal_gpio_data_t  a;
+	SysTick->CTRL &= ~( 1 | 1 << 16 ); 
+	SysTick->LOAD = us;
+	SysTick->VAL  = 0;
+	SysTick->CTRL = SysTick_CTRL_ENABLE_Msk;
+	while(repeat--)
+	{		
+		/* Waiting for down-count to zero */
+		while((SysTick->CTRL & (1 << 16)) == 0);
+		SysTick->VAL  = 0;
+		hal_gpio_get_input (HAL_GPIO_37,&a);
+		if(a) break;
+	}
 }
 
 int main(void)
 {
-		volatile int cnt=0,bump=0,state=0;
-		 hal_gpio_data_t  a;
+	volatile int cnt=0,bump=0,state=0;
+	hal_gpio_data_t  a;
     /* Configure system clock. */
     SystemClock_Config();
 
@@ -256,54 +222,50 @@ int main(void)
     /* Add your application code here */
     printf("\r\n\r\n");/* The output UART used by printf is set by log_uart_init() */
     printf("welcome to main()\r\n");
-	  gpio_application_36();
-	  gpio_application_37();
+	gpio_application_36();
+	gpio_application_37();
 	
-	
-
-	
-	  while(1){
-			hal_gpio_get_input (HAL_GPIO_37,&a);
-			if(a){
-				cnt=cnt+1;
-				hal_gpio_set_output(HAL_GPIO_36, HAL_GPIO_DATA_LOW);
-					if(cnt==1){
-						state=state+1;
-						switch(state){
-							case 1: printf("LED FLASH=1\r\n"); break;
-							case 2: printf("LED FLASH=0\r\n"); break;
-							case 3: printf("LED FLASH=1\r\n");state=1; break;
-							default: break;
-						}
-					}
-		   }
-			else{
-						cnt=0;
-						switch(state){
-							case 1:
-								hal_gpio_set_output(HAL_GPIO_36, HAL_GPIO_DATA_LOW);
-								SYS_Delay(100000);
-								hal_gpio_set_output(HAL_GPIO_36, HAL_GPIO_DATA_HIGH);
-								SYS_Delay(100000);
-								break;
-							case 2:
-								hal_gpio_set_output(HAL_GPIO_36, HAL_GPIO_DATA_LOW);
-								break;
-							case 3:
-								state=1;
-							  break;
-							default:
-								break;
-					  }
+	while(1)
+	{
+		hal_gpio_get_input (HAL_GPIO_37,&a);
+		if(a)
+		{
+			cnt=cnt+1;
+			hal_gpio_set_output(HAL_GPIO_36, HAL_GPIO_DATA_LOW);
+			if(cnt==1)
+			{
+				state=state+1;
+				switch(state)
+				{
+					case 1: printf("LED FLASH=1\r\n"); break;
+					case 2: printf("LED FLASH=0\r\n"); break;
+					case 3: printf("LED FLASH=1\r\n");state=1; break;
+					default: break;
+				}
 			}
-			
-			
-		
-	  }
-
-    
-
-	
+		}
+		else
+		{
+			cnt=0;
+			switch(state)
+			{
+				case 1:
+					hal_gpio_set_output(HAL_GPIO_36, HAL_GPIO_DATA_LOW);
+					SYS_Delay(100000);
+					hal_gpio_set_output(HAL_GPIO_36, HAL_GPIO_DATA_HIGH);
+					SYS_Delay(100000);
+					break;
+				case 2:
+					hal_gpio_set_output(HAL_GPIO_36, HAL_GPIO_DATA_LOW);
+					break;
+				case 3:
+					state=1;
+					break;
+				default:
+					break;
+			}
+		}
+	}
 	
 }
 

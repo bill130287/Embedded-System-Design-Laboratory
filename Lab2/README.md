@@ -5,8 +5,8 @@
    3. 當LED BAR全亮後，再按下USR BUTTON，LED BAR 則回復成顯示第一條
 # GPIO Define
    1. LED BAR V2.0 插在擴充板D2位置
-   2. LED BAR DATA Pin -> GPIO 0
-   3. LED BAR CLK Pin  -> GPIO 39
+   2. LED BAR DATA pin -> GPIO 0
+   3. LED BAR CLK pin  -> GPIO 39
 # MY9221 Control Waveform
    ![Alt text]()
    ![Alt text]() 
