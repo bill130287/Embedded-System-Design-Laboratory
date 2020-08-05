@@ -2,7 +2,7 @@
 University course
 2020/07/09
 
-# Hardware
+## Hardware
    * Development Board: LinkIt 7697
    * Core: ARM Cortx M4
    * Wireless: 802.11b/g/n
@@ -10,10 +10,10 @@ University course
    * RAM: 352 KB
    * External Flash Memory: 4 MB
    * Interface: GPIO, UART, I2C, SPI, PWM, EINT, ADC, IrDA, I2S
-# Development Tools
+## Development Tools
    * Use LinkIt SDK to develop
    * IDE: Keil uVision
-# Lab
+## Lab
    * Lab1- Use button to control LED flashing.
    * Lab2- Use button to control LED bar.
    * Lab3- Read the light sensor and display the value on the OLED.
